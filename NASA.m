@@ -1,5 +1,6 @@
 % creating and assigning variables
 
+%Hello World
 %% CHOPPER STAGE MODEL
 % CSM_1; % single-phase chopper stage mass
 % CSM_3; % three-phase chopper stage mass
