@@ -166,7 +166,7 @@ harnessMaterial = 'Cu';
 radiatorType = 2;
 maxRadiatorSinkTemp = 294;
 maxBaseplateTemp = 63;
-radiatorBasePlateDelta = maxRadiatorSinkTemp-275-maxBaseplateTemp;
+radiatorBaseplateDelta = maxRadiatorSinkTemp-275-maxBaseplateTemp;
 
 if(strcmp(enclosureType, 'FH'))
     maxRadiatorBaseplateDelta = 11;
@@ -178,7 +178,7 @@ if gt(radiatorBaseplateDelta, maxRadiatorBaseplateDelta)
     error('out of range')
 end
     
-% Q = Pout*(1 - DRB_efficiency); % heat in kWT
+% Q = Pout * (1 - DRB_efficiency); % heat in kWT
 Q = 290;
 
 % calculate densities-- assumed DC/DC Converter-Internal
