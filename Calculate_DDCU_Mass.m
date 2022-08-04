@@ -10,7 +10,7 @@ function [DDCU_Mass] = Calculate_DDCU_Mass(F, Vin, Vout, Pout, Available_Modules
     Chopper_Stage_Mass = Calculate_CS_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
     
     
-    DDCEM = 
+    Q_DDCU = Pout * (1 - DDCSE); % i think
     Pin = Pout/DDCE;
     
     DDCU_Mass = 0;
