@@ -17,4 +17,6 @@ function [DRB_Mass] = Calculate_DRB_Mass(F, Vin, Vout, Pout, Available_Modules, 
     * DRBM_power_level_multiplier * DRBM_power_level_factor ...
     * DRBM_voltage_level_factor;
 
+%add heatsink/radiator
+
 end

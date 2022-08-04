@@ -171,17 +171,12 @@ if(strcmp(enclosureType, 'FH'))
 else
     maxRadiatorBaseplateDelta = 4;
 end
+Q = 290; % heat in kWT
 
 
 % calculate densities-- assumed DC/DC Converter-Internal
 CP_density = 0.404;
 FH_density = 0.250;
-
-% box masses
-ALFHBM = 3.4*(Pout/Required_Modules)^0.3+8.1*((CC_L*CC_W)+2*(CC_L*CC_H)+2*(CC_W*CC_H))+44.6*(CC_L*CC_W); % Aluminum Finned Heat Exchanger Box Mass in kilograms
-ALCPBM = 0.35*(Pout/Required_Modules)^0.3+8.1*((CC_L*CC_W)+2*(CC_L*CC_H)+2*(CC_W*CC_H))+33.45*(CC_L*CC_W); % Aluminum Coldplate Based Box Mass in kilograms
-CCFHBM = 3.4*(Pout/Required_Modules)^0.3+5.0*((CC_L*CC_W)+2*(CC_L*CC_H)+2*(CC_W*CC_H))+27.3*(CC_L*CC_W); % Carbon-Carbon Finned Heat Exchanger Box Mass in kilograms
-CCCPBM = 0.35*(Pout/Required_Modules)^0.3+5.0*((CC_L*CC_W)+2*(CC_L*CC_H)+2*(CC_W*CC_H))+20.44*(CC_L*CC_W); % Carbon-Carbon Coldplate Based Box Mass in kilograms
     
 low_v  = [20:10:120];
 % polyfit for chopper efficiency at low voltages
@@ -195,5 +190,5 @@ rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
 
 % par 4.3, 4.4, 4.5
 
-mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, CC_L, CC_W, CC_H);
+mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, CC_L, CC_W, CC_H, harnessMaterial, enclosureType, enclosureMaterial);
 disp(mass_total);
