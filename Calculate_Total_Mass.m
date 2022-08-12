@@ -37,4 +37,10 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     total_Mass = Filter_Stage_Mass + Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
         Chopper_Stage_Mass + DRB_Mass + ...
         DDCU_CM_Mass + DRB_CM_Mass + box_Mass;
+
+
+    % we eventually want this to look like:
+    % DDCU_Mass = Calculate_DDCU_Mass(JOFJODIJODIS)
+    % DRB_Switchgear_Mass = Calculate DRB_Switchgear_Mass(OSIDFJOIDFJ)
+    % total_Mass = DDCU_Mass + DRB_Switchgear_Mass
 end

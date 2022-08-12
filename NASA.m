@@ -268,14 +268,14 @@ ylabel('kg/kWe');
 grid on; hold on;
 
 
-% started 3d plot things!
-% figure(31)
-% plot3(RSVi_range, RSM_1_voltage./RSPo, RSM_1_voltage./RSE, '.--', 'MarkerSize', 20, 'LineWidth', 1);
-% title('Figure 31: Rectifier SPWT vs Efficiency vs Low Voltages');
-% xlabel('Input Voltage (Vrms)');
-% ylabel('kg/kWe');
-% zlabel('Efficiency');
-% grid on; hold on;
+% started 3d plot!
+figure(31)
+plot3(RSE_range, RSVi_range, RSPo_range, '.--', 'MarkerSize', 20, 'LineWidth', 1);
+title('Figure 31: Rectifier SPWT vs Efficiency vs Low Voltages');
+xlabel('Input Voltage (Vrms)');
+ylabel('kg/kWe');
+zlabel('Efficiency');
+grid on; hold on;
 
 %% DC FILTER STAGE MODEL
 
