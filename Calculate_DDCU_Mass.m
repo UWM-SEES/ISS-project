@@ -13,4 +13,8 @@ function [DDCU_Mass] = Calculate_DDCU_Mass(F, Vin, Vout, Pout, Available_Modules
     Q_DDCU = Pout * (1 - DDCSE); % i think
     Pin = Pout/DDCE;
     
+    % box_Mass
+    % radiator_Mass
+    % CC_Mass
+    
     DDCU_Mass = 0;
