@@ -144,9 +144,9 @@
 
 % default values
 F = 40;
-Vin = 120;
+Vin = 48;
 Vout = 120;
-Pout = 100;
+Pout = 6.25;
 Available_Modules = 1;
 Required_Modules = 1;
 DRB_efficiency = 0.9985;
@@ -198,4 +198,4 @@ rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
 % par 4.3, 4.4, 4.5
 
 mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, CC_L, CC_W, CC_H, harnessMaterial, enclosureType, enclosureMaterial);
-disp(mass_total);
+%disp(mass_total);

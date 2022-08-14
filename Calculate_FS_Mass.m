@@ -1,11 +1,11 @@
-function [FS_Mass] = Calculate_FS_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, FS_efficiency, FS_ripple)
+function [FS_Mass] = Calculate_FS_Mass(F, V_rated, Pout, Available_Modules, Required_Modules, FS_efficiency, FS_ripple)
 
     FSRF = FS_ripple; % Dc Filter Stage Ripple Factor (0.1 to 5%)
     FSE = FS_efficiency; % Dc Filter Stage Efficiency (99.8%)
     FSAM = Available_Modules; % Dc Filter Stage Available Modules
     FSRM = Required_Modules; % Dc Filter Stage Required Modules
     FSPo = Pout; % Dc Filter Stage Power Output (kWe)
-    FSVo = Vout; % Dc Filter Stage Voltage Output (Vdc)
+    FSVo = V_rated; % Dc Filter Stage Voltage Rating (Vdc)
     FSF = F; % Dc Filter Stage Frequency (kHz)
 
     FSM_mass_coefficient = 22.05;
