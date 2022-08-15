@@ -146,7 +146,7 @@
 F = 40;
 Vin = 48;
 Vout = 120;
-Pout = 6.25;
+Pout = 8.0;
 Available_Modules = 1;
 Required_Modules = 1;
 DRB_efficiency = 0.9985;
