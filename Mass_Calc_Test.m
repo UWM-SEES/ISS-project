@@ -156,9 +156,9 @@ RS_efficiency = 0.9870;
 ITS_efficiency = 0.9920;
 CS_efficiency = 0.9760;
 CC_efficiency = 0.9980;
-CC_L = 5;
-CC_H = 5;
-CC_W = 5;
+% CC_L = 5;
+% CC_H = 5;
+% CC_W = 5;
 enclosureType = 'FH';
 enclosureMaterial = 'Al';
 radiatorMaterial = 'Al';
@@ -197,5 +197,5 @@ rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
 
 % par 4.3, 4.4, 4.5
 
-mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, CC_L, CC_W, CC_H, harnessMaterial, enclosureType, enclosureMaterial);
+mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, harnessMaterial, enclosureType, enclosureMaterial);
 %disp(mass_total);
