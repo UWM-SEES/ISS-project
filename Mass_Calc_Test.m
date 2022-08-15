@@ -76,7 +76,7 @@
 %     error('Outside of range');
 % end
 % 
-% % poll user for packaged electronics length
+% % poll user for packaged electronics length--not needed!!!!
 % CC_L = input('What is the packaged electronics length? (meters) ');
 % if lt(CC_L, 0)
 %     error('Outside of range')
