@@ -81,8 +81,8 @@ Required_Modules = 1;
 
 RS_efficiency = rectifier_efficiency_mesh;
 
-RS_mass_mesh_1 = Calculate_RS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
-RS_mass_mesh_2 = Calculate_RS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
+RS_mass_mesh_1 = Calculate_RS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
+RS_mass_mesh_2 = Calculate_RS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
 
 RS_specific_power_mesh_1 = Pout./RS_mass_mesh_1;
 RS_specific_power_mesh_2 = Pout./RS_mass_mesh_2;
@@ -96,4 +96,35 @@ hold on
 surf(rectifier_power_mesh, rectifier_efficiency_mesh, RS_specific_power_mesh_2)
 legend('20 kHz', '40 kHz') % this doesn't matter for rectifier
 
-%% filter stage
+%% input filter stage
+
+figure(4)
+Input_filter_efficiency_array = [0.997: 0.0002:0.999];
+Input_filter_power_array = [10:10:200];
+[input_filter_efficiency_mesh, input_filter_power_mesh] = meshgrid(Input_filter_efficiency_array, Input_filter_power_array);
+
+F1 = 20;
+F2 = 40;
+Vin = 48;
+Pout = input_filter_power_mesh;
+Available_Modules = 1;
+Required_Modules = 1;
+FS_ripple = 0.004;
+
+IFS_efficiency = input_filter_efficiency_mesh;
+
+IFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+disp(IFS_mass_mesh_2)
+
+IFS_specific_power_mesh_1 = Pout./IFS_mass_mesh_1;
+IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
+
+surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_1)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('Input Filter Stage')
+hold on
+surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_2)
+legend('20 kHz', '40 kHz') % this doesn't matter for rectifier

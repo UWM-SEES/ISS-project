@@ -9,15 +9,15 @@ function [FS_Mass] = Calculate_FS_Mass(F, V_rated, Pout, Available_Modules, Requ
     FSF = F; % Dc Filter Stage Frequency (kHz)
 
     FSM_mass_coefficient = 22.05;
-    FSM_ripple_factor = (1/(FSRF/0.01)^0.5);
-    FSM_efficiency_factor = ((1-0.998)/(1-FSE));
-    FSM_redundancy_factor = (FSAM/FSRM);
+    FSM_ripple_factor = (1./(FSRF./0.01).^0.5);
+    FSM_efficiency_factor = ((1-0.998)./(1-FSE));
+    FSM_redundancy_factor = (FSAM./FSRM);
     FSM_power_level_multiplier = FSPo;
-    FSM_voltage_level_factors = (FSVo^(-0.9) + 0.000015);
-    FSM_frequency_factor = 40/FSF;
+    FSM_voltage_level_factors = (FSVo.^(-0.9) + 0.000015);
+    FSM_frequency_factor = 40./FSF;
 
-    FS_Mass = FSM_mass_coefficient * FSM_ripple_factor * FSM_efficiency_factor...
-    * FSM_redundancy_factor * FSM_power_level_multiplier * FSM_voltage_level_factors...
-    * FSM_frequency_factor;
+    FS_Mass = FSM_mass_coefficient .* FSM_ripple_factor .* FSM_efficiency_factor...
+    .* FSM_redundancy_factor .* FSM_power_level_multiplier .* FSM_voltage_level_factors...
+    .* FSM_frequency_factor;
 
 end
