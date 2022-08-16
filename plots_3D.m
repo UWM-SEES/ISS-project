@@ -168,8 +168,7 @@ Input_RBI_power_array = [5:10:250];
 
 [input_RBI_efficiency_mesh, input_RBI_power_mesh] = meshgrid(Input_RBI_efficiency_array, Input_RBI_power_array);
 
-F1 = 20;
-F2 = 40;
+F1 = 40;
 Vin = 120;
 Vout = 0; % vout is not used!
 Pout = input_RBI_power_mesh;
@@ -178,10 +177,8 @@ Required_Modules = 1;
 
 IDRB_efficiency = input_RBI_efficiency_mesh;
 IRBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vout, Vin, Pout, Available_Modules, Required_Modules, DRB_efficiency);
-IRBI_mass_mesh_2 = Calculate_DRB_Mass(F2, Vout, Vin, Pout, Available_Modules, Required_Modules, DRB_efficiency);
 
 IRBI_specific_power_mesh_1 = Pout./IRBI_mass_mesh_1;
-IRBI_specific_power_mesh_2 = Pout./IRBI_mass_mesh_2;
 
 surf(input_RBI_power_mesh, input_RBI_efficiency_mesh, IRBI_specific_power_mesh_1)
 xlabel('Power [kW]')
@@ -189,8 +186,7 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('Input DC Breaker Stage')
 hold on
-surf(input_RBI_power_mesh, input_RBI_efficiency_mesh, IRBI_specific_power_mesh_2)
-legend('20 kHz', '40 kHz') % only 40 kHz 
+legend('40 kHz') % only 40 kHz 
 
 %% output dc breaker stage
 
@@ -200,8 +196,7 @@ Output_RBI_power_array = [5:10:250];
 
 [output_RBI_efficiency_mesh, output_RBI_power_mesh] = meshgrid(Output_RBI_efficiency_array, Output_RBI_power_array);
 
-F1 = 20;
-F2 = 40;
+F1 = 40;
 Vin = 0; % vin is not used!
 Vout = 5000; 
 Pout = output_RBI_power_mesh;
@@ -210,10 +205,8 @@ Required_Modules = 1;
 
 ODRB_efficiency = output_RBI_efficiency_mesh;
 ORBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
-ORBI_mass_mesh_2 = Calculate_DRB_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
 
 ORBI_specific_power_mesh_1 = Pout./ORBI_mass_mesh_1;
-ORBI_specific_power_mesh_2 = Pout./ORBI_mass_mesh_2;
 
 surf(output_RBI_power_mesh, output_RBI_efficiency_mesh, ORBI_specific_power_mesh_1)
 xlabel('Power [kW]')
@@ -221,5 +214,4 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('Output DC Breaker Stage')
 hold on
-surf(output_RBI_power_mesh, output_RBI_efficiency_mesh, ORBI_specific_power_mesh_2)
-legend('20 kHz', '40 kHz') % only 40 kHz 
+legend('40 kHz') % only 40 kHz 
