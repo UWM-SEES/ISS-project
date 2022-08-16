@@ -115,6 +115,7 @@ IFS_efficiency = input_filter_efficiency_mesh;
 
 IFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
 IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+disp(IFS_mass_mesh_2)
 
 IFS_specific_power_mesh_1 = Pout./IFS_mass_mesh_1;
 IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
@@ -143,21 +144,22 @@ Available_Modules = 1;
 Required_Modules = 1;
 FS_ripple = 0.004;
 
-OFS_efficiency = output_filter_efficiency_mesh;
+IFS_efficiency = input_filter_efficiency_mesh;
 
-OFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
-OFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
+IFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+disp(IFS_mass_mesh_2)
 
-OFS_specific_power_mesh_1 = Pout./OFS_mass_mesh_1;
-OFS_specific_power_mesh_2 = Pout./OFS_mass_mesh_2;
+IFS_specific_power_mesh_1 = Pout./IFS_mass_mesh_1;
+IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
 
-surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_1)
+surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_1)
 xlabel('Power [kW]')
 ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
-title('Output Filter Stage')
+title('Input Filter Stage')
 hold on
-surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_2)
+surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_2)
 legend('20 kHz', '40 kHz') 
 
 
