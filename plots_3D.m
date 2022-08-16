@@ -103,8 +103,8 @@ Input_filter_efficiency_array = [0.997: 0.0002:0.999];
 Input_filter_power_array = [10:10:200];
 [input_filter_efficiency_mesh, input_filter_power_mesh] = meshgrid(Input_filter_efficiency_array, Input_filter_power_array);
 
-F1 = 20;
-F2 = 40;
+F1 = 40;
+%F2 = 20;
 Vin = 120;
 Pout = input_filter_power_mesh;
 Available_Modules = 1;
@@ -114,10 +114,10 @@ FS_ripple = 0.004;
 IFS_efficiency = input_filter_efficiency_mesh;
 
 IFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
-IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+%IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
 
 IFS_specific_power_mesh_1 = Pout./IFS_mass_mesh_1;
-IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
+%IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
 
 surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_1)
 xlabel('Power [kW]')
@@ -125,8 +125,9 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('Input Filter Stage')
 hold on
-surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_2)
-legend('20 kHz', '40 kHz') 
+%surf(input_filter_power_mesh, input_filter_efficiency_mesh, IFS_specific_power_mesh_2)
+%legend('20 kHz', '40 kHz') 
+legend('40 kHz')
 
 %% output filter stage
 
@@ -135,8 +136,8 @@ Output_filter_efficiency_array = [0.997: 0.0002:0.999];
 Output_filter_power_array = [10:10:200];
 [output_filter_efficiency_mesh, output_filter_power_mesh] = meshgrid(Output_filter_efficiency_array, Output_filter_power_array);
 
-F1 = 20;
-F2 = 40;
+F1 = 40; %if using both F1 and F2, set F1 to 20 and F2 to 40
+%F2 = 20;
 Vout = 5000;
 Pout = output_filter_power_mesh;
 Available_Modules = 1;
@@ -146,10 +147,10 @@ FS_ripple = 0.004;
 OFS_efficiency = output_filter_efficiency_mesh;
 
 OFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
-OFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
+%OFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
 
 OFS_specific_power_mesh_1 = Pout./OFS_mass_mesh_1;
-OFS_specific_power_mesh_2 = Pout./OFS_mass_mesh_2;
+%OFS_specific_power_mesh_2 = Pout./OFS_mass_mesh_2;
 
 surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_1)
 xlabel('Power [kW]')
@@ -157,8 +158,8 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('Output Filter Stage')
 hold on
-surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_2)
-legend('20 kHz', '40 kHz') 
+%surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_2)
+legend('40 kHz') 
 
 %% input dc breaker stage
 
@@ -176,7 +177,7 @@ Available_Modules = 1;
 Required_Modules = 1;
 
 IDRB_efficiency = input_RBI_efficiency_mesh;
-IRBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vout, Vin, Pout, Available_Modules, Required_Modules, DRB_efficiency);
+IRBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vout, Vin, Pout, Available_Modules, Required_Modules, IDRB_efficiency);
 
 IRBI_specific_power_mesh_1 = Pout./IRBI_mass_mesh_1;
 
