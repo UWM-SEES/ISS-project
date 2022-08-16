@@ -71,8 +71,8 @@ Rectifier_efficiency_array = [.986: .001: .996];
 Rectifier_power_array = [10:10:250];
 [rectifier_efficiency_mesh, rectifier_power_mesh] = meshgrid(Rectifier_efficiency_array, Rectifier_power_array);
 
-F1 = 20;
-F2 = 40;
+F1 = 40;
+% F2 = 40;
 Vin = 120;
 Vout = 0; %not used
 Pout = rectifier_power_mesh;
@@ -93,8 +93,9 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('Rectifier Stage')
 hold on
-surf(rectifier_power_mesh, rectifier_efficiency_mesh, RS_specific_power_mesh_2)
-legend('20 kHz', '40 kHz') % this doesn't matter for rectifier
+%surf(rectifier_power_mesh, rectifier_efficiency_mesh, RS_specific_power_mesh_2)
+legend('40 kHz')
+% legend('20 kHz', '40 kHz') % this doesn't matter for rectifier
 
 %% input filter stage
 
