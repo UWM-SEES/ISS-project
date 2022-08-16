@@ -17,8 +17,8 @@ Required_Modules = 1;
 CS_efficiency = chopper_efficiency_mesh;
 
 
-mass_mesh_1 = Calculate_CS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency)
-mass_mesh_2 = Calculate_CS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency)
+mass_mesh_1 = Calculate_CS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
+mass_mesh_2 = Calculate_CS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
 
 specific_power_mesh_1 = Pout./mass_mesh_1;
 specific_power_mesh_2 = Pout./mass_mesh_2;
@@ -42,7 +42,7 @@ Inverter_transformer_power_array = [10:10:250];
 F1 = 20;
 F2 = 40;
 Vin = 120;
-Vout = 0; %not used
+Vout = 5000; %not used
 Pout = inverter_transformer_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
@@ -105,7 +105,7 @@ Input_filter_power_array = [10:10:200];
 
 F1 = 20;
 F2 = 40;
-Vin = 48;
+Vin = 120;
 Pout = input_filter_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
@@ -137,8 +137,8 @@ Output_filter_power_array = [10:10:200];
 
 F1 = 20;
 F2 = 40;
-Vout = 120;
-Pout = input_filter_power_mesh;
+Vout = 5000;
+Pout = output_filter_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
 FS_ripple = 0.004;
@@ -160,4 +160,66 @@ hold on
 surf(output_filter_power_mesh, output_filter_efficiency_mesh, OFS_specific_power_mesh_2)
 legend('20 kHz', '40 kHz') 
 
+%% input dc breaker stage
 
+figure(6)
+Input_RBI_efficiency_array = [0.9980:0.0001: 0.9990];
+Input_RBI_power_array = [5:10:250];
+
+[input_RBI_efficiency_mesh, input_RBI_power_mesh] = meshgrid(Input_RBI_efficiency_array, Input_RBI_power_array);
+
+F1 = 20;
+F2 = 40;
+Vin = 120;
+Vout = 0; % vout is not used!
+Pout = input_RBI_power_mesh;
+Available_Modules = 1;
+Required_Modules = 1;
+
+IDRB_efficiency = input_RBI_efficiency_mesh;
+IRBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vout, Vin, Pout, Available_Modules, Required_Modules, DRB_efficiency);
+IRBI_mass_mesh_2 = Calculate_DRB_Mass(F2, Vout, Vin, Pout, Available_Modules, Required_Modules, DRB_efficiency);
+
+IRBI_specific_power_mesh_1 = Pout./IRBI_mass_mesh_1;
+IRBI_specific_power_mesh_2 = Pout./IRBI_mass_mesh_2;
+
+surf(input_RBI_power_mesh, input_RBI_efficiency_mesh, IRBI_specific_power_mesh_1)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('Input DC Breaker Stage')
+hold on
+surf(input_RBI_power_mesh, input_RBI_efficiency_mesh, IRBI_specific_power_mesh_2)
+legend('20 kHz', '40 kHz') % only 40 kHz 
+
+%% output dc breaker stage
+
+figure(7)
+Output_RBI_efficiency_array = [0.9980:0.0001: 0.9990];
+Output_RBI_power_array = [5:10:250];
+
+[output_RBI_efficiency_mesh, output_RBI_power_mesh] = meshgrid(Output_RBI_efficiency_array, Output_RBI_power_array);
+
+F1 = 20;
+F2 = 40;
+Vin = 0; % vin is not used!
+Vout = 5000; 
+Pout = output_RBI_power_mesh;
+Available_Modules = 1;
+Required_Modules = 1;
+
+ODRB_efficiency = output_RBI_efficiency_mesh;
+ORBI_mass_mesh_1 = Calculate_DRB_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
+ORBI_mass_mesh_2 = Calculate_DRB_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
+
+ORBI_specific_power_mesh_1 = Pout./ORBI_mass_mesh_1;
+ORBI_specific_power_mesh_2 = Pout./ORBI_mass_mesh_2;
+
+surf(output_RBI_power_mesh, output_RBI_efficiency_mesh, ORBI_specific_power_mesh_1)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('Output DC Breaker Stage')
+hold on
+surf(output_RBI_power_mesh, output_RBI_efficiency_mesh, ORBI_specific_power_mesh_2)
+legend('20 kHz', '40 kHz') % only 40 kHz 
