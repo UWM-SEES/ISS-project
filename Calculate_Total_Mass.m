@@ -31,7 +31,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     %drb calculations
     DRB_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 1);
     Conductor_Connector_Mass_DRB = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 1)
-    DRB_Mass = Calculate_DRB_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
+    DRB_Mass = Calculate_DC_Remote_Bus_Isolator_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
    
     
     total_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
@@ -58,6 +58,6 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
 
     % we eventually want this to look like:
     % DDCU_Mass = Calculate_DDCU_Mass(JOFJODIJODIS)
-    % DRB_Switchgear_Mass = Calculate DRB_Switchgear_Mass(OSIDFJOIDFJ)
+    % DRB_Switchgear_Mass = Calculate DC_RBI_Switchgear_Mass(OSIDFJOIDFJ)
     % total_Mass = DDCU_Mass + DRB_Switchgear_Mass
 end
