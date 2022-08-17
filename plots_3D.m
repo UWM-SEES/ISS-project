@@ -17,8 +17,8 @@ Required_Modules = 1;
 CS_efficiency = chopper_efficiency_mesh;
 
 
-CS_mass_mesh_1 = Calculate_CS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
-CS_mass_mesh_2 = Calculate_CS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
+CS_mass_mesh_1 = Calculate_Chopper_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
+CS_mass_mesh_2 = Calculate_Chopper_Stage_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, CS_efficiency);
 
 specific_power_mesh_1 = Pout./CS_mass_mesh_1;
 specific_power_mesh_2 = Pout./CS_mass_mesh_2;
@@ -49,8 +49,8 @@ Required_Modules = 1;
 
 ITS_efficiency = inverter_transformer_efficiency_mesh;
 
-ITS_mass_mesh_1 = Calculate_ITS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
-ITS_mass_mesh_2 = Calculate_ITS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
+ITS_mass_mesh_1 = Calculate_Inverter_Transformer_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
+ITS_mass_mesh_2 = Calculate_Inverter_Transformer_Stage_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, ITS_efficiency);
 
 ITS_specific_power_mesh_1 = Pout./ITS_mass_mesh_1;
 ITS_specific_power_mesh_2 = Pout./ITS_mass_mesh_2;
@@ -81,8 +81,8 @@ Required_Modules = 1;
 
 RS_efficiency = rectifier_efficiency_mesh;
 
-RS_mass_mesh_1 = Calculate_RS_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
-% RS_mass_mesh_2 = Calculate_RS_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
+RS_mass_mesh_1 = Calculate_Rectifier_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
+% RS_mass_mesh_2 = Calculate_Rectifier_Stage_Mass(F2, Vin, Vout, Pout, Available_Modules, Required_Modules, RS_efficiency);
 
 RS_specific_power_mesh_1 = Pout./RS_mass_mesh_1;
 % RS_specific_power_mesh_2 = Pout./RS_mass_mesh_2;
@@ -114,8 +114,8 @@ FS_ripple = 0.004;
 
 IFS_efficiency = input_filter_efficiency_mesh;
 
-IFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
-%IFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+IFS_mass_mesh_1 = Calculate_Filter_Stage_Mass(F1, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
+%IFS_mass_mesh_2 = Calculate_Filter_Stage_Mass(F2, Vin, Pout, Available_Modules, Required_Modules, IFS_efficiency, FS_ripple);
 
 IFS_specific_power_mesh_1 = Pout./IFS_mass_mesh_1;
 %IFS_specific_power_mesh_2 = Pout./IFS_mass_mesh_2;
@@ -147,8 +147,8 @@ FS_ripple = 0.004;
 
 OFS_efficiency = output_filter_efficiency_mesh;
 
-OFS_mass_mesh_1 = Calculate_FS_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
-%OFS_mass_mesh_2 = Calculate_FS_Mass(F2, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
+OFS_mass_mesh_1 = Calculate_Filter_Stage_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
+%OFS_mass_mesh_2 = Calculate_Filter_Stage_Mass(F2, Vout, Pout, Available_Modules, Required_Modules, OFS_efficiency, FS_ripple);
 
 OFS_specific_power_mesh_1 = Pout./OFS_mass_mesh_1;
 %OFS_specific_power_mesh_2 = Pout./OFS_mass_mesh_2;
@@ -219,22 +219,22 @@ hold on
 legend('40 kHz') % only 40 kHz 
 
 %% DC DC converter stage
-
-figure(8)
-
-disp(size(CS_mass_mesh_2))
-disp(size(ITS_mass_mesh_2))
-disp(size(RS_mass_mesh_1))
-disp(size(IFS_mass_mesh_1))
-disp(size(OFS_mass_mesh_1))
-disp(size(IRBI_mass_mesh_1))
-disp(size(ORBI_mass_mesh_1))
-
-DDCU_mass_mesh_40kHz = CS_mass_mesh_2 + ITS_mass_mesh_2 + RS_mass_mesh_1 + IFS_mass_mesh_1 + OFS_mass_mesh_1 ...
-    + IRBI_mass_mesh_1 + ORBI_mass_mesh_1;
-
-DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
-    .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
-    .* output_RBI_efficiency_mesh;
-
-DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh_40kHz;
+% 
+% figure(8)
+% 
+% disp(size(CS_mass_mesh_2))
+% disp(size(ITS_mass_mesh_2))
+% disp(size(RS_mass_mesh_1))
+% disp(size(IFS_mass_mesh_1))
+% disp(size(OFS_mass_mesh_1))
+% disp(size(IRBI_mass_mesh_1))
+% disp(size(ORBI_mass_mesh_1))
+% 
+% DDCU_mass_mesh_40kHz = CS_mass_mesh_2 + ITS_mass_mesh_2 + RS_mass_mesh_1 + IFS_mass_mesh_1 + OFS_mass_mesh_1 ...
+%     + IRBI_mass_mesh_1 + ORBI_mass_mesh_1;
+% 
+% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+%     .* output_RBI_efficiency_mesh;
+% 
+% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh_40kHz;
