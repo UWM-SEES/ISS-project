@@ -9,4 +9,3 @@ function [box_Mass] = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_W
     elseif(strcmp(enclosureType, 'CP') && strcmp(enclosureMaterial, 'CC'))
         box_Mass = 0.35*(Pout/Required_Modules)^0.3+5.0*((CC_Length*CC_Width)+2*(CC_Length*CC_Height)+2*(CC_Width*CC_Height))+20.44*(CC_Length*CC_Width); % Carbon-Carbon Coldplate Based Box Mass in kilograms
     end
-    % put this in its own function

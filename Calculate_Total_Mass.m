@@ -1,4 +1,4 @@
-function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_Efficiency, harnessMaterial, enclosureType, enclosureMaterial)
+function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_Efficiency, harnessMaterial, enclosureType, enclosureMaterial, radiatorMaterial, Q, radiatorType, maxRadiatorSinkTemp, maxBaseplateTemp, maxRadiatorBaseplateDelta)
  
     Filter_Stage_Mass_Input = Calculate_Filter_Stage_Mass(F, Vin, Pout, Available_Modules, Required_Modules, FS_efficiency, FS_ripple);
     Filter_Stage_Mass_Output = Calculate_Filter_Stage_Mass(F, Vout, Pout, Available_Modules, Required_Modules, FS_efficiency, FS_ripple);
@@ -8,6 +8,12 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     
     % to determine CC_Length, CC_Width, and CC_Height for the CC_Masses
     packaged_electronics_density = 0.222; % this is for FH, for CP it is 0.249
+%     switch(enclosureType)
+%         case 'CP'
+%             packaged_electronics_density = 0.249;
+%         case 'FH'
+%             packaged_electronics_density = 0.222; 
+
     Component_Electronics_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output + Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + Chopper_Stage_Mass;
     Component_Volume = Component_Electronics_Mass/(1000*packaged_electronics_density);
    
@@ -24,23 +30,33 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     % end of determinining CC_Length, width, and height
     
     box_Mass = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_Width, CC_Height, enclosureType, enclosureMaterial);
+    radiator_Mass = Calculate_Radiator_Mass(radiatorType, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
     Conductor_Connector_Mass_DDCU = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 2)
+    % we temporarily removed Conductor_Connector mass calculations because
+    % they didn't seem to give accurate numbers
     DDCU_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 0);
-    
-    
+
     %drb calculations
     DRB_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 1);
     Conductor_Connector_Mass_DRB = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 1)
+    % we temporarily removed Conductor_Connector mass calculations because
+    % they didn't seem to give accurate numbers
+    
     DRB_Mass = Calculate_DC_Remote_Bus_Isolator_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
    
     
     total_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
         Chopper_Stage_Mass + DRB_Mass + ...
-        DDCU_CM_Mass + DRB_CM_Mass + box_Mass;
+        DDCU_CM_Mass + DRB_CM_Mass + box_Mass + radiator_Mass;
     
-     fprintf('Total DC/DC Converter Mass: %4.3f kg \n', total_Mass)
+    total_DDCU_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
+        Chopper_Stage_Mass + box_Mass + radiator_Mass;
+
+    total_DRB_Mass = DRB_CM_Mass + DRB_Mass;
+
+     fprintf('Total DC/DC Converter Mass: %4.3f kg \n', total_DDCU_Mass)
     
-    display_individual_masses(Filter_Stage_Mass_Input,Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass); 
+    display_individual_masses(Filter_Stage_Mass_Input,Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, radiator_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass); 
     
     specific_power = Pout/total_Mass;
     fprintf('\nSpecific Power of DC/DC Converter %4.3f kWe/kg \n',specific_power)
@@ -53,7 +69,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     power_density = Pout/box_volume;
     fprintf('Power Density of DC/DC Converter %4.3f kWe/L \n',power_density)
     
- 
+    fprintf('Total DRBI Mass: %4.3f kg \n', total_DRB_Mass)
 
 
     % we eventually want this to look like:

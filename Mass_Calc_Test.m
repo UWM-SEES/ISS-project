@@ -197,5 +197,5 @@ rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
 
 % par 4.3, 4.4, 4.5
 
-mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, harnessMaterial, enclosureType, enclosureMaterial);
+mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, harnessMaterial, enclosureType, enclosureMaterial, radiatorMaterial, Q, radiatorType, maxRadiatorSinkTemp, maxBaseplateTemp, maxRadiatorBaseplateDelta);
 %disp(mass_total);
