@@ -144,9 +144,9 @@
 
 % default values
 F = 40;
-Vin = 48;
-Vout = 120;
-Pout = 8.0;
+Vin = 120;
+Vout = 5e3;
+Pout = 40;
 Available_Modules = 1;
 Required_Modules = 1;
 DRB_efficiency = 0.9985;
@@ -163,7 +163,7 @@ enclosureType = 'FH';
 enclosureMaterial = 'Al';
 radiatorMaterial = 'Al';
 harnessMaterial = 'Cu';
-radiatorType = 2;
+Radiator_Type = 2;
 maxRadiatorSinkTemp = 294;
 maxBaseplateTemp = 63;
 radiatorBaseplateDelta = maxRadiatorSinkTemp-275-maxBaseplateTemp;
@@ -179,7 +179,7 @@ if gt(radiatorBaseplateDelta, maxRadiatorBaseplateDelta)
 end
     
 % Q = Pout * (1 - DRB_efficiency); % heat in kWT
-Q = 290;
+Q = 290/1000;
 
 % calculate densities-- assumed DC/DC Converter-Internal
 CP_density = 0.404;
@@ -194,6 +194,9 @@ chopper_lowV_efficiency = polyval(Vin, polyfit_chopper);
 rectifier_e = [.9670 .9795 .9820 .9838 .9850 .9856 .9862 .9866 .9868 .9870 .9870];
 polyfit_rectifier = polyfit(low_v, rectifier_e, 3);
 rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
+
+%test calcuate radiator mass function.
+radiator_mass = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial)
 
 % par 4.3, 4.4, 4.5
 
