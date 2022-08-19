@@ -5,7 +5,7 @@ function [Radiator_Mass] = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplat
     
     switch(radiatorMaterial)
         case 'Al'
-            Radiator_Mass = (22.26*(CC_Length*CC_Width) + 22.26*Radiator_Area)/1000;
+            Radiator_Mass = (22.26*(CC_Length*CC_Width) + 22.26*Radiator_Area);
         case 'CC'
-            Radiator_Mass = (13.6*(CC_Length*CC_Width) + 13.6*Radiator_Area)/1000;
+            Radiator_Mass = (13.6*(CC_Length*CC_Width) + 13.6*Radiator_Area);
     end

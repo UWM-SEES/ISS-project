@@ -4,4 +4,8 @@ function [DRB_Switchgear_Mass] = Calculate_DC_RBI_Switchgear_Mass(F, Vin, Vout, 
     DRB_Mass = Calculate_DC_Remote_Bus_Isolator_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
 %add heatsink/radiator
 
-    DRB_Switchgear_Mass = DRB_CM_Mass + DRB_Mass;
+    box_Mass = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_Width, CC_Height, enclosureType, enclosureMaterial);
+    radiator_Mass = Calculate_Radiator_Mass(radiatorType, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
+
+
+    DRB_Switchgear_Mass = DRB_CM_Mass + DRB_Mass + box_Mass + radiator_Mass;

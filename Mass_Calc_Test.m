@@ -179,7 +179,7 @@ if gt(radiatorBaseplateDelta, maxRadiatorBaseplateDelta)
 end
     
 % Q = Pout * (1 - DRB_efficiency); % heat in kWT
-Q = 290;
+Q = 290/1000;
 
 % calculate densities-- assumed DC/DC Converter-Internal
 CP_density = 0.404;

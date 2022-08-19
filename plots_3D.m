@@ -219,22 +219,24 @@ hold on
 legend('40 kHz') % only 40 kHz 
 
 %% DC DC converter stage
-% 
-% figure(8)
-% 
-% disp(size(CS_mass_mesh_2))
-% disp(size(ITS_mass_mesh_2))
-% disp(size(RS_mass_mesh_1))
-% disp(size(IFS_mass_mesh_1))
-% disp(size(OFS_mass_mesh_1))
-% disp(size(IRBI_mass_mesh_1))
-% disp(size(ORBI_mass_mesh_1))
-% 
-% DDCU_mass_mesh_40kHz = CS_mass_mesh_2 + ITS_mass_mesh_2 + RS_mass_mesh_1 + IFS_mass_mesh_1 + OFS_mass_mesh_1 ...
-%     + IRBI_mass_mesh_1 + ORBI_mass_mesh_1;
-% 
-% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
-%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
-%     .* output_RBI_efficiency_mesh;
-% 
-% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh_40kHz;
+
+figure(8)
+
+component_efficiency = CS_efficiency .* RS_efficiency .* ODRB_efficiency .* IDRB_efficiency .* OFS_efficiency .* IFS_efficiency;
+
+disp(size(CS_mass_mesh_2))
+disp(size(ITS_mass_mesh_2))
+disp(size(RS_mass_mesh_1))
+disp(size(IFS_mass_mesh_1))
+disp(size(OFS_mass_mesh_1))
+disp(size(IRBI_mass_mesh_1))
+disp(size(ORBI_mass_mesh_1))
+
+DDCU_mass_mesh_40kHz = CS_mass_mesh_2 + ITS_mass_mesh_2 + RS_mass_mesh_1 + IFS_mass_mesh_1 + OFS_mass_mesh_1 ...
+    + IRBI_mass_mesh_1 + ORBI_mass_mesh_1;
+
+DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+    .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+    .* output_RBI_efficiency_mesh;
+
+DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh_40kHz;
