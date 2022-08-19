@@ -266,18 +266,8 @@ mass_mesh = Calculate_Chopper_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules,
     + Calculate_Inverter_Transformer_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, inverter_transformer_efficiency_array) ...
     + Calculate_Rectifier_Stage_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, rectifier_efficiency_array) ...
     + Calculate_Filter_Stage_Mass(F1, 120, Pout, Available_Modules, Required_Modules, filter_efficiency, FS_ripple) ...
-    + Calculate_Filter_Stage_Mass(F1, 5000, Pout, Available_Modules, Required_Modules, filter_efficiency, FS_ripple);
+    + Calculate_Filter_Stage_Mass(F1, Vout, Pout, Available_Modules, Required_Modules, filter_efficiency, FS_ripple);
 
-specific_power_mesh = Pout./mass_mesh;
-
-
-surf(power_mesh, efficiency_mesh, specific_power_mesh)
-xlabel('Power [kW]')
-ylabel('Efficiency')
-zlabel('Specific Power [kW/kg]')
-title('DDCU Stage')
-hold on
-legend('40 kHz') % only 40 kHz 
 
 DDCU_mass_mesh_40kHz = CS_mass_mesh_2 + ITS_mass_mesh_2 + RS_mass_mesh_1 + IFS_mass_mesh_1 + OFS_mass_mesh_1 ...
     + IRBI_mass_mesh_1 + ORBI_mass_mesh_1;
