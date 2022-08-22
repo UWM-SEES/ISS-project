@@ -1,8 +1,20 @@
-%Creates 3D plots
+%% plots_3D: Creates 3D plots
+% creates plots of chopper, inverter transformer, rectifier, input and
+% output filter, and remote bus isolators
+
+%% default values
+F1 = 20;
+F2 = 40;
+Vin = 120;
+Vout = 5000; %not used
+Available_Modules = 1;
+Required_Modules = 1;
+number_of_sample_points = 20;
 
 %% chopper stage
 figure(1)
 Chopper_efficiency_array = [0.968:0.001:0.984];
+
 Chopper_power_array = [10:5:100];
 [chopper_efficiency_mesh, chopper_power_mesh] = meshgrid(Chopper_efficiency_array, Chopper_power_array);
 
