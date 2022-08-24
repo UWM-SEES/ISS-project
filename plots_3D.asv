@@ -20,7 +20,7 @@ chopper_efficiency_low = 0.968;
 chopper_efficiency_range = chopper_efficiency_high - chopper_efficiency_low;
 chopper_efficiency_step = chopper_efficiency_range/number_of_sample_points;
 Chopper_efficiency_array = [chopper_efficiency_low: chopper_efficiency_step: chopper_efficiency_high];
-Chopper_power_array = [5:10:250];
+Chopper_power_array = [10:5:100];
 [chopper_efficiency_mesh, chopper_power_mesh] = meshgrid(Chopper_efficiency_array, Chopper_power_array);
 
 F1 = 20;
@@ -57,8 +57,7 @@ inverter_transformer_efficiency_high = 0.996;
 inverter_transformer_efficiency_low = 0.986;
 inverter_transformer_efficiency_range = inverter_transformer_efficiency_high - inverter_transformer_efficiency_low;
 inverter_transformer_efficiency_step = inverter_transformer_efficiency_range/number_of_sample_points;
-Inverter_transformer_efficiency_array = [inverter_transformer_efficiency_low: inverter_transformer_efficiency_step: inverter_transformer_efficiency_high];
-Inverter_transformer_power_array = [5:10:250];
+Inverter_transformer_efficiency_array = [inverter_transformer_efficiency_low: inverter_transformer_efficiency_step: inverter_transformer_efficiency_high];Inverter_transformer_power_array = [10:10:250];
 [inverter_transformer_efficiency_mesh, inverter_transformer_power_mesh] = meshgrid(Inverter_transformer_efficiency_array, Inverter_transformer_power_array);
 
 F1 = 20;
@@ -94,9 +93,7 @@ rectifier_efficiency_high = 0.991;
 rectifier_efficiency_low = 0.983;
 rectifier_efficiency_range = rectifier_efficiency_high - rectifier_efficiency_low;
 rectifier_efficiency_step = rectifier_efficiency_range/number_of_sample_points;
-Rectifier_efficiency_array = [rectifier_efficiency_low: rectifier_efficiency_step: rectifier_efficiency_high];
-
-Rectifier_power_array = [5:10:250];
+Rectifier_efficiency_array = [rectifier_efficiency_low: rectifier_efficiency_step: rectifier_efficiency_high];Rectifier_power_array = [10:10:250];
 [rectifier_efficiency_mesh, rectifier_power_mesh] = meshgrid(Rectifier_efficiency_array, Rectifier_power_array);
 
 F1 = 40;
@@ -133,9 +130,7 @@ filter_efficiency_high = 0.997;
 filter_efficiency_low = 0.999;
 filter_efficiency_range = filter_efficiency_high - filter_efficiency_low;
 filter_efficiency_step = filter_efficiency_range/number_of_sample_points;
-Input_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];
-
-Input_filter_power_array = [5:10:250];
+Input_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];Input_filter_power_array = [10:10:200];
 [input_filter_efficiency_mesh, input_filter_power_mesh] = meshgrid(Input_filter_efficiency_array, Input_filter_power_array);
 
 F1 = 40;
@@ -171,9 +166,7 @@ filter_efficiency_high = 0.997;
 filter_efficiency_low = 0.999;
 filter_efficiency_range = filter_efficiency_high - filter_efficiency_low;
 filter_efficiency_step = filter_efficiency_range/number_of_sample_points;
-Output_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];
-
-Output_filter_power_array = [5:10:250];
+Output_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];Output_filter_power_array = [10:10:200];
 [output_filter_efficiency_mesh, output_filter_power_mesh] = meshgrid(Output_filter_efficiency_array, Output_filter_power_array);
 
 F1 = 40; %if using both F1 and F2, set F1 to 20 and F2 to 40
