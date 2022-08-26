@@ -64,7 +64,7 @@ Inverter_transformer_power_array = [5:10:250];
 F1 = 20;
 F2 = 40;
 Vin = 120;
-Vout = 5000; %not used
+Vout = 4500; %not used
 Pout = inverter_transformer_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
@@ -178,7 +178,7 @@ Output_filter_power_array = [5:10:250];
 
 F1 = 40; %if using both F1 and F2, set F1 to 20 and F2 to 40
 %F2 = 20;
-Vout = 5000;
+Vout = 4500;
 Pout = output_filter_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
@@ -239,7 +239,7 @@ Output_RBI_power_array = [5:10:250];
 
 F1 = 40;
 Vin = 0; % vin is not used!
-Vout = 5000; 
+Vout = 4500; 
 Pout = output_RBI_power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
