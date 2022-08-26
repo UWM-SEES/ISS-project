@@ -262,7 +262,7 @@ legend('40 kHz') % only 40 kHz
 figure(8)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = [10:10:250];
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
