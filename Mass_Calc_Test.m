@@ -144,8 +144,8 @@
 
 % default values
 F = 40;
-Vin = 48;
-Vout = 120;
+Vin = 120;
+Vout = 4500;
 Pout = 8.0;
 Available_Modules = 1;
 Required_Modules = 1;

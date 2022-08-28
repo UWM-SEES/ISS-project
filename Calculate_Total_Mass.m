@@ -42,7 +42,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     % we temporarily removed Conductor_Connector mass calculations because
     % they didn't seem to give accurate numbers
     
-    DRB_Mass = Calculate_DC_Remote_Bus_Isolator_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
+    DRB_Mass = Calculate_DC_Remote_Bus_Isolator_Mass(Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency);
    
     
     total_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
@@ -50,7 +50,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
         DDCU_CM_Mass + DRB_CM_Mass + box_Mass + radiator_Mass;
     
     total_DDCU_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
-        Chopper_Stage_Mass + box_Mass + radiator_Mass;
+        Chopper_Stage_Mass + box_Mass + radiator_Mass + DDCU_CM_Mass;
 
     total_DRB_Mass = DRB_CM_Mass + DRB_Mass + radiator_Mass + box_Mass;
 

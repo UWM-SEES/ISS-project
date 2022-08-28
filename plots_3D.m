@@ -217,7 +217,7 @@ Available_Modules = 1;
 Required_Modules = 1;
 
 IDRB_efficiency = input_RBI_efficiency_mesh;
-IRBI_mass_mesh_1 = Calculate_DC_Remote_Bus_Isolator_Mass(F1, Vout, Vin, Pout, Available_Modules, Required_Modules, IDRB_efficiency);
+IRBI_mass_mesh_1 = Calculate_DC_Remote_Bus_Isolator_Mass(Vin, Pout, Available_Modules, Required_Modules, IDRB_efficiency);
 
 IRBI_specific_power_mesh_1 = Pout./IRBI_mass_mesh_1;
 
@@ -245,7 +245,7 @@ Available_Modules = 1;
 Required_Modules = 1;
 
 ODRB_efficiency = output_RBI_efficiency_mesh;
-ORBI_mass_mesh_1 = Calculate_DC_Remote_Bus_Isolator_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
+ORBI_mass_mesh_1 = Calculate_DC_Remote_Bus_Isolator_Mass(Vout, Pout, Available_Modules, Required_Modules, ODRB_efficiency);
 
 ORBI_specific_power_mesh_1 = Pout./ORBI_mass_mesh_1;
 

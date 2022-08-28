@@ -1,4 +1,4 @@
-function [DRB_Mass] = Calculate_DC_Remote_Bus_Isolator_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency)
+function [DRB_Mass] = Calculate_DC_Remote_Bus_Isolator_Mass(Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency)
 
     DRBE = DRB_efficiency; % DC RBI Efficiency
     DRBAM = Available_Modules; % Dc RBI Available Modules
