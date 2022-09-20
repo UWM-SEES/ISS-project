@@ -257,6 +257,7 @@ title('Output DC Breaker Stage')
 hold on
 legend('40 kHz') % only 40 kHz 
 
+
 %% DC DC converter stage
 
 figure(8)
@@ -293,4 +294,6 @@ title('DDCU Stage')
 hold on
 legend('40 kHz') % only 40 kHz 
 
+%% radiator
 
+%% connector

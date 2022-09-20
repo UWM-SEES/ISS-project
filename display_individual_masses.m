@@ -1,4 +1,4 @@
-function [] = display_individual_masses(Filter_Stage_Mass_Input, Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, radiator_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass)
+function [] = display_individual_masses(Filter_Stage_Mass_Input, Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, radiator_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass, DDCU_CC_Mass)
     x = Rectifier_Stage_Mass + Chopper_Stage_Mass + Inverter_Transformer_Stage_Mass;
     fprintf("\t DC/DC Converter Elemental Parts Mass: %4.3f kg \n", x)   
     fprintf("\t\t Chopper Stage Mass: %4.3f kg \n", Chopper_Stage_Mass)   
@@ -17,6 +17,6 @@ function [] = display_individual_masses(Filter_Stage_Mass_Input, Filter_Stage_Ma
    
     %fprintf("\DC/DC Converter Elemental Parts Mass: %4.3f kg kg", x)
     
-    % disp("DC/DC Converter Conductor/Connector Mass: " + Conductor_Connector_Mass_DDCU + " kg")
+    disp("DC/DC Converter Conductor/Connector Mass: " + DDCU_CC_Mass + " kg")
 end  
     

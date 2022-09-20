@@ -56,7 +56,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
 
      fprintf('Total DC/DC Converter Mass: %4.3f kg \n', total_DDCU_Mass)
     
-    display_individual_masses(Filter_Stage_Mass_Input,Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, radiator_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass); 
+    display_individual_masses(Filter_Stage_Mass_Input,Filter_Stage_Mass_Output, Rectifier_Stage_Mass, Inverter_Transformer_Stage_Mass, Chopper_Stage_Mass, box_Mass, radiator_Mass, DRB_Mass, DDCU_CM_Mass, DRB_CM_Mass, Conductor_Connector_Mass_DDCU); 
     
     specific_power = Pout/total_Mass;
     fprintf('\nSpecific Power of DC/DC Converter %4.3f kWe/kg \n',specific_power)
