@@ -31,14 +31,14 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
     
     box_Mass = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_Width, CC_Height, enclosureType, enclosureMaterial);
     radiator_Mass = Calculate_Radiator_Mass(radiatorType, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
-    Conductor_Connector_Mass_DDCU = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 2)
+    Conductor_Connector_Mass_DDCU = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 2);
     % we temporarily removed Conductor_Connector mass calculations because
     % they didn't seem to give accurate numbers
     DDCU_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 0);
 
     %drb calculations
     DRB_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 1);
-    Conductor_Connector_Mass_DRB = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 1)
+    Conductor_Connector_Mass_DRB = Calculate_Conductor_Connector_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_Efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, 1);
     % we temporarily removed Conductor_Connector mass calculations because
     % they didn't seem to give accurate numbers
     
@@ -50,7 +50,7 @@ function [total_Mass] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modul
         DDCU_CM_Mass + DRB_CM_Mass + box_Mass + radiator_Mass;
     
     total_DDCU_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
-        Chopper_Stage_Mass + box_Mass + radiator_Mass + DDCU_CM_Mass;
+        Chopper_Stage_Mass + box_Mass + radiator_Mass + DDCU_CM_Mass + Conductor_Connector_Mass_DDCU;
 
     total_DRB_Mass = DRB_CM_Mass + DRB_Mass + radiator_Mass + box_Mass;
 

@@ -10,13 +10,13 @@ function [] = display_individual_masses(Filter_Stage_Mass_Input, Filter_Stage_Ma
     fprintf("\t Box Mass: %4.3f kg \n", box_Mass)
     fprintf("\t Radiator Mass: %4.3f kg \n", radiator_Mass)
     fprintf("\t DC/DC Converter Control and Monitoring Mass: %4.3f kg \n\n", DDCU_CM_Mass)
-    
+    fprintf("\t DC/DC Converter Conductor/Connector Mass: " + DDCU_CC_Mass + " kg")
+
     fprintf("\t DC RBI Mass: %4.3f kg \n", DRB_Mass)
     fprintf("\t DC RBI Control and Monitoring Mass: %4.3f kg \n", DRB_CM_Mass)
     % disp("DC RBI Conductor/Connector Mass: " + Conductor_Connector_Mass_DRB + " kg")
    
     %fprintf("\DC/DC Converter Elemental Parts Mass: %4.3f kg kg", x)
     
-    disp("DC/DC Converter Conductor/Connector Mass: " + DDCU_CC_Mass + " kg")
 end  
     
