@@ -198,4 +198,21 @@ rectifier_lowV_efficiency = polyval(Vin, polyfit_rectifier);
 % par 4.3, 4.4, 4.5
 
 mass_total = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, FS_efficiency, FS_ripple, RS_efficiency, ITS_efficiency, CS_efficiency, CC_efficiency, harnessMaterial, enclosureType, enclosureMaterial, radiatorMaterial, Q, radiatorType, maxRadiatorSinkTemp, maxBaseplateTemp, maxRadiatorBaseplateDelta);
+
+% table
+architectures = ["Radial"; "Ring"; "Mesh"];
+cable_lengths = [9.6; 12.6; 18.9];
+num_RBIs = [8; 12; 16];
+
+%radial_RBI_Switchgear_Mass = Calculate_DC_RBI_Switchgear_Mass(8, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, enclosureMaterial);
+%ring_RBI_Switchgear_Mass = Calculate_DC_RBI_Switchgear_Mass(12, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, enclosureMaterial);
+%mesh_RBI_Switchgear_Mass = Calculate_DC_RBI_Switchgear_Mass(16, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, enclosureMaterial);
+
+%RBI_masses = [radial_RBI_Switchgear_Mass;ring_RBI_Switchgear_Mass;mesh_RBI_Switchgear_Mass];
+
+t = table(architectures, cable_lengths, num_RBIs);
+disp(t)
+
+% show_table(architectures, cable_lengths, num_RBIs);
+
 %disp(mass_total);
