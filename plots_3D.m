@@ -294,7 +294,120 @@ title('DDCU Stage')
 hold on
 legend('40 kHz') % only 40 kHz 
 
-%% radiator
+%% calculating CC_length, CC_width, CC_height
 
+% to determine CC_Length, CC_Width, and CC_Height for the CC_Masses
+    packaged_electronics_density = 0.222; % this is for FH, for CP it is 0.249
+%     switch(enclosureType)
+%         case 'CP'
+%             packaged_electronics_density = 0.249;
+%         case 'FH'
+%             packaged_electronics_density = 0.222; 
+
+    Component_Electronics_Mass = DDCU_mass_mesh;
+    Component_Volume = Component_Electronics_Mass./(1000.*packaged_electronics_density);
+
+    CC_Length = 1.351.*Component_Volume.^0.3333;
+    CC_Width = 1.148.*Component_Volume.^0.3333;
+    CC_Height = 0.646.*Component_Volume.^0.3333;   
+% end of determinining CC_Length, width, and height
+
+%% box
+figure(9)
+
+efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
+power_array = [5:10:250];
+
+[efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
+
+Pout = power_mesh;
+Available_Modules = 1;
+Required_Modules = 1;
+
+box_mass = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_Width, CC_Height, enclosureType, enclosureMaterial);
+DDCU_box_mass_mesh = DDCU_mass_mesh + box_mass;
+
+% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+%     .* output_RBI_efficiency_mesh;
+
+% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
+
+DDCU__box_specific_power_mesh = Pout./DDCU_box_mass_mesh;
+
+
+surf(power_mesh, efficiency_mesh, DDCU__box_specific_power_mesh)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('DDCU W/ Box Stage')
+hold on
+legend('40 kHz') % only 40 kHz 
+
+%% radiator
+figure(10)
+
+efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
+power_array = [5:10:250];
+
+[efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
+
+Pout = power_mesh;
+
+radiator_mass = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
+DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
+
+% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+%     .* output_RBI_efficiency_mesh;
+
+% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
+
+DDCU_radiator_specific_power_mesh = Pout./DDCU_radiator_mass_mesh;
+
+
+surf(power_mesh, efficiency_mesh, DDCU_radiator_specific_power_mesh)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('DDCU W/ Radiator Stage')
+hold on
+legend('40 kHz') % only 40 kHz 
 
 %% connector
+% figure(11)
+% 
+% efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
+% power_array = [5:10:250];
+% 
+% [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
+% 
+% F1 = 40;
+% Vin = 120;
+% Vout = 0; % vout is not used!
+% Pout = power_mesh;
+% Available_Modules = 1;
+% Required_Modules = 1;
+% 
+% radiator_mass = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
+% DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
+% 
+% % DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+% %     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+% %     .* output_RBI_efficiency_mesh;
+% 
+% % DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
+% 
+% DDCU_radiator_specific_power_mesh = Pout./DDCU_radiator_mass_mesh;
+% 
+% 
+% surf(power_mesh, efficiency_mesh, DDCU_radiator_specific_power_mesh)
+% xlabel('Power [kW]')
+% ylabel('Efficiency')
+% zlabel('Specific Power [kW/kg]')
+% title('DDCU W/ Radiator Stage')
+% hold on
+% legend('40 kHz') % only 40 kHz
+
+%% all
+

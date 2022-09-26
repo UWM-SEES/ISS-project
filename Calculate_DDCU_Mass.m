@@ -17,11 +17,11 @@ function [DDCU_Mass] = Calculate_DDCU_Mass(F, Vin, Vout, Pout, Available_Modules
     % we temporarily removed Conductor_Connector mass calculations because
     % they didn't seem to give accurate numbers
     
-    DDCU_CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 0);
+    CM_Mass = Calculate_Control_Monitoring_Mass(Available_Modules, Required_Modules, Pout, 0);
 
     
 %     Q_DDCU = Pout * (1 - DDCSE); % i think
 %     Pin = Pout/DDCE;
     
     DDCU_Mass = Filter_Stage_Mass_Input + Filter_Stage_Mass_Output+  Rectifier_Stage_Mass + Inverter_Transformer_Stage_Mass + ...
-        Chopper_Stage_Mass + box_Mass + radiator_Mass;
+        Chopper_Stage_Mass + box_Mass + radiator_Mass + CM_Mass;
