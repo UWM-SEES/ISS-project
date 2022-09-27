@@ -323,6 +323,16 @@ power_array = [5:10:250];
 Pout = power_mesh;
 Available_Modules = 1;
 Required_Modules = 1;
+enclosureType = 'FH';
+enclosureMaterial = 'Al';
+radiatorMaterial = 'Al';
+harnessMaterial = 'Cu';
+radiatorType = 2;
+maxRadiatorSinkTemp = 294;
+maxBaseplateTemp = 63;
+radiatorBaseplateDelta = maxRadiatorSinkTemp-275-maxBaseplateTemp;
+maxRadiatorBaseplateDelta = 11;
+Q = 290/1000;
 
 box_mass = Calculate_Box_Mass(Pout, Required_Modules, CC_Length, CC_Width, CC_Height, enclosureType, enclosureMaterial);
 DDCU_box_mass_mesh = DDCU_mass_mesh + box_mass;
@@ -354,7 +364,7 @@ power_array = [5:10:250];
 
 Pout = power_mesh;
 
-radiator_mass = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
+radiator_mass = Calculate_Radiator_Mass(radiatorType, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
 DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
 
 % DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
@@ -375,39 +385,66 @@ hold on
 legend('40 kHz') % only 40 kHz 
 
 %% connector
-% figure(11)
-% 
-% efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-% power_array = [5:10:250];
-% 
-% [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
-% 
-% F1 = 40;
-% Vin = 120;
-% Vout = 0; % vout is not used!
-% Pout = power_mesh;
-% Available_Modules = 1;
-% Required_Modules = 1;
-% 
-% radiator_mass = Calculate_Radiator_Mass(Radiator_Type, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
-% DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
-% 
-% % DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
-% %     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
-% %     .* output_RBI_efficiency_mesh;
-% 
-% % DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
-% 
-% DDCU_radiator_specific_power_mesh = Pout./DDCU_radiator_mass_mesh;
-% 
-% 
-% surf(power_mesh, efficiency_mesh, DDCU_radiator_specific_power_mesh)
-% xlabel('Power [kW]')
-% ylabel('Efficiency')
-% zlabel('Specific Power [kW/kg]')
-% title('DDCU W/ Radiator Stage')
-% hold on
-% legend('40 kHz') % only 40 kHz
+figure(11)
+
+efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
+power_array = [5:10:250];
+
+[efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
+
+F1 = 40;
+Vin = 120;
+Vout = 4500; % vout is not used!
+Pout = power_mesh;
+Available_Modules = 1;
+Required_Modules = 1;
+CC_efficiency = 0.9980;
+numVoltages = 2;
+
+connector_mass = Calculate_Conductor_Connector_Mass(F1, Vin, Vout, Pout, Available_Modules, Required_Modules, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, numVoltages);
+DDCU_connector_mass_mesh = DDCU_mass_mesh + connector_mass;
+
+% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+%     .* output_RBI_efficiency_mesh;
+
+% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
+
+DDCU_connector_specific_power_mesh = Pout./DDCU_connector_mass_mesh;
+
+
+surf(power_mesh, efficiency_mesh, DDCU_connector_specific_power_mesh)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('DDCU W/ Conductor and Connector Stage')
+hold on
+legend('40 kHz') % only 40 kHz
 
 %% all
+figure(12)
+
+efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
+power_array = [5:10:250];
+
+[efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
+
+DDCU_all_mass_mesh = DDCU_mass_mesh + connector_mass + radiator_mass + box_mass;
+
+% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
+%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
+%     .* output_RBI_efficiency_mesh;
+
+% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
+
+DDCU_all_specific_power_mesh = Pout./DDCU_all_mass_mesh;
+
+
+surf(power_mesh, efficiency_mesh, DDCU_all_specific_power_mesh)
+xlabel('Power [kW]')
+ylabel('Efficiency')
+zlabel('Specific Power [kW/kg]')
+title('DDCU W/ All Parts Stage')
+hold on
+legend('40 kHz') % only 40 kHz
 
