@@ -363,8 +363,9 @@ power_array = [5:10:250];
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
 Pout = power_mesh;
+Q_array = (1-efficiency_mesh).*power_mesh;
 
-radiator_mass = Calculate_Radiator_Mass(radiatorType, Q, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
+radiator_mass = Calculate_Radiator_Mass(radiatorType, Q_array, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
 DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
 
 % DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
