@@ -39,9 +39,14 @@ function [DDCU, RBI] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Module
 
     %total_DRB_Mass = DRB_CM_Mass + DRB_Mass + radiator_Mass + box_Mass;
     %numRBI = 1;
-    RBI.mass_1 = Calculate_DC_RBI_Switchgear_Mass(1, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial)
-    RBI.mass_3 = Calculate_DC_RBI_Switchgear_Mass(3, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial)
-    RBI.mass_4 = Calculate_DC_RBI_Switchgear_Mass(4, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial)
+    
+    %The RBI has only 1 Voltage so Vin = Vout. Equations on page 65 under
+    %Table 21 give almost same results for 2 and voltages besides for
+    %efficiency, which for the RBI is almost 1 anyway. 
+    RBI.Vin = Vout;
+    RBI.mass_1 = Calculate_DC_RBI_Switchgear_Mass(1, F, RBI.Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial);
+    RBI.mass_3 = Calculate_DC_RBI_Switchgear_Mass(3, F, RBI.Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial);
+    RBI.mass_4 = Calculate_DC_RBI_Switchgear_Mass(4, F, RBI.Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_Efficiency,  harnessMaterial, enclosureType, enclosureMaterial, radiatorType, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial);
 
      fprintf('Total DC/DC Converter Mass: %4.3f kg \n', DDCU.total_Mass)
     
@@ -50,7 +55,11 @@ function [DDCU, RBI] = Calculate_Total_Mass(F, Vin, Vout, Pout, Available_Module
     
     
 
-    display_individual_masses_v2(DDCU)
+    display_individual_masses_v2_DDCU(DDCU);
+    display_individual_masses_v2_RBI(RBI.mass_1);
+    display_individual_masses_v2_RBI(RBI.mass_3);
+    display_individual_masses_v2_RBI(RBI.mass_4);
+    %display_individual_masses_v2_RBI(RBI)
     
 %     box_volume = CC_Length*CC_Width*CC_Height*1000;
 %     fprintf('Box Volume: %2.3f [Liters]\n', box_volume)

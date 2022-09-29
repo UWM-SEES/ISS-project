@@ -98,7 +98,7 @@ rectifier_efficiency_range = rectifier_efficiency_high - rectifier_efficiency_lo
 rectifier_efficiency_step = rectifier_efficiency_range/number_of_sample_points;
 Rectifier_efficiency_array = [rectifier_efficiency_low: rectifier_efficiency_step: rectifier_efficiency_high];
 
-Rectifier_power_array = Power_array;
+Rectifier_power_array = [5:10:250];
 [rectifier_efficiency_mesh, rectifier_power_mesh] = meshgrid(Rectifier_efficiency_array, Rectifier_power_array);
 
 F1 = 40;
@@ -131,13 +131,13 @@ legend('40 kHz')
 
 figure(4)
 
-filter_efficiency_high = 0.999;
-filter_efficiency_low = 0.997;
+filter_efficiency_high = 0.997;
+filter_efficiency_low = 0.999;
 filter_efficiency_range = filter_efficiency_high - filter_efficiency_low;
 filter_efficiency_step = filter_efficiency_range/number_of_sample_points;
 Input_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];
 
-Input_filter_power_array = Power_array;
+Input_filter_power_array = [5:10:250];
 [input_filter_efficiency_mesh, input_filter_power_mesh] = meshgrid(Input_filter_efficiency_array, Input_filter_power_array);
 
 F1 = 40;
@@ -169,13 +169,13 @@ legend('40 kHz')
 %% output filter stage
 
 figure(5)
-filter_efficiency_high = 0.999;
-filter_efficiency_low = 0.997;
+filter_efficiency_high = 0.997;
+filter_efficiency_low = 0.999;
 filter_efficiency_range = filter_efficiency_high - filter_efficiency_low;
 filter_efficiency_step = filter_efficiency_range/number_of_sample_points;
 Output_filter_efficiency_array = [filter_efficiency_low: filter_efficiency_step: filter_efficiency_high];
 
-Output_filter_power_array = Power_array;
+Output_filter_power_array = [5:10:250];
 [output_filter_efficiency_mesh, output_filter_power_mesh] = meshgrid(Output_filter_efficiency_array, Output_filter_power_array);
 
 F1 = 40; %if using both F1 and F2, set F1 to 20 and F2 to 40
@@ -207,7 +207,7 @@ legend('40 kHz')
 
 figure(6)
 Input_RBI_efficiency_array = [0.9980:0.0001: 0.9990];
-Input_RBI_power_array = Power_array;
+Input_RBI_power_array = [5:5:50];
 
 [input_RBI_efficiency_mesh, input_RBI_power_mesh] = meshgrid(Input_RBI_efficiency_array, Input_RBI_power_array);
 
@@ -235,7 +235,7 @@ legend('40 kHz') % only 40 kHz
 
 figure(7)
 Output_RBI_efficiency_array = [0.9980:0.0001: 0.9990];
-Output_RBI_power_array = Power_array;
+Output_RBI_power_array = [5:5:50];
 
 [output_RBI_efficiency_mesh, output_RBI_power_mesh] = meshgrid(Output_RBI_efficiency_array, Output_RBI_power_array);
 
@@ -265,7 +265,7 @@ legend('40 kHz') % only 40 kHz
 figure(8)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
@@ -318,7 +318,7 @@ legend('40 kHz') % only 40 kHz
 figure(9)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
@@ -356,11 +356,11 @@ title('DDCU W/ Box Stage')
 hold on
 legend('40 kHz') % only 40 kHz 
 
-%% radiator + DDCU
-figure(10), clf
+%% radiator
+figure(10)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
@@ -385,13 +385,13 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('DDCU W/ Radiator Stage')
 hold on
-%legend('40 kHz') % only 40 kHz 
+legend('40 kHz') % only 40 kHz 
 
 %% connector
 figure(11)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
@@ -425,10 +425,10 @@ hold on
 legend('40 kHz') % only 40 kHz
 
 %% all
-figure(12), clf
+figure(12)
 
 efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
+power_array = [5:10:250];
 
 [efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
 
@@ -449,35 +449,5 @@ ylabel('Efficiency')
 zlabel('Specific Power [kW/kg]')
 title('DDCU W/ All Parts Stage')
 hold on
-%legend('40 kHz') % only 40 kHz
+legend('40 kHz') % only 40 kHz
 
-%% Just radiator
-
-figure(13), clf
-efficiency_array = Chopper_efficiency_array .* Inverter_transformer_efficiency_array .* Rectifier_efficiency_array .* Input_filter_efficiency_array .* Output_filter_efficiency_array;
-power_array = Power_array;
-
-[efficiency_mesh, power_mesh] = meshgrid(efficiency_array, power_array);
-
-Pout = power_mesh;
-Q_array = (1-efficiency_mesh).*power_mesh;
-
-radiator_mass = Calculate_Radiator_Mass(radiatorType, Q_array, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, CC_Length, CC_Width, CC_Height);
-%DDCU_radiator_mass_mesh = DDCU_mass_mesh + radiator_mass;
-
-% DDCU_efficiency_mesh_40kHz = chopper_efficiency_mesh .* inverter_transformer_efficiency_mesh .* rectifier_efficiency_mesh ...
-%     .* input_filter_efficiency_mesh .* output_filter_efficiency_mesh .* input_RBI_efficiency_mesh ...
-%     .* output_RBI_efficiency_mesh;
-
-% DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
-
-DDCU_radiator_solo_specific_power_mesh = Pout./radiator_mass;
-
-
-surf(power_mesh, efficiency_mesh, DDCU_radiator_solo_specific_power_mesh)
-xlabel('Power [kW]')
-ylabel('Efficiency')
-zlabel('Specific Power [kW/kg]')
-title('Only Radiator Stage')
-hold on
-%legend('40 kHz') % only 40 kHz 

@@ -204,17 +204,17 @@ cable_specific_mass = 180;
 
 architectures = ["Radial"; "Ring"; "Mesh"];
 cable_lengths_km = [9.6; 12.6; 18.9]; % kg
-cable_masses_kg = [cable_lengths] .* cable_specific_mass; % kg/km
+cable_masses_kg = [cable_lengths_km] .* cable_specific_mass; % kg/km
 num_RBIs = ["1,3,3,1"; "3,3,3,3"; "4,4,4,4"];
 
-total_mass_radial_RBI = RBI.mass_1*2 + RBI.mass_3*2;
-total_mass_ring_RBI = RBI.mass_3*4;
-total_mass_mesh_RBI = RBI.mass_4*4;
+total_mass_radial_RBI = RBI.mass_1.DRB_Switchgear_Mass*2 + RBI.mass_3.DRB_Switchgear_Mass*2;
+total_mass_ring_RBI = RBI.mass_3.DRB_Switchgear_Mass*4;
+total_mass_mesh_RBI = RBI.mass_4.DRB_Switchgear_Mass*4;
 
 RBI_total_mass =[total_mass_radial_RBI; total_mass_ring_RBI; total_mass_mesh_RBI ];
 
 DDCU_120V_to_4500V = [DDCU.total_Mass*4; DDCU.total_Mass*4; DDCU.total_Mass*4;];
-Total_Distribution_Mass = [RBI_total_mass+ DDCU_120V_to_4500V+ cable_masses];
+Total_Distribution_Mass = [RBI_total_mass+ DDCU_120V_to_4500V+ cable_masses_kg];
 
 %radial_RBI_Switchgear_Mass = Calculate_DC_RBI_Switchgear_Mass(8, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, enclosureMaterial);
 %ring_RBI_Switchgear_Mass = Calculate_DC_RBI_Switchgear_Mass(12, F, Vin, Vout, Pout, Available_Modules, Required_Modules, DRB_efficiency, CC_efficiency, CC_Length, CC_Width, CC_Height, harnessMaterial, enclosureType, enclosureMaterial);
@@ -222,7 +222,7 @@ Total_Distribution_Mass = [RBI_total_mass+ DDCU_120V_to_4500V+ cable_masses];
 
 %RBI_masses = [radial_RBI_Switchgear_Mass;ring_RBI_Switchgear_Mass;mesh_RBI_Switchgear_Mass];
 
-t = table(architectures, cable_lengths, cable_masses, num_RBIs, RBI_total_mass, DDCU_120V_to_4500V, Total_Distribution_Mass); 
+t = table(architectures, cable_lengths_km, cable_masses_kg, num_RBIs, RBI_total_mass, DDCU_120V_to_4500V, Total_Distribution_Mass); 
 disp(t)
 
 % show_table(architectures, cable_lengths, num_RBIs);

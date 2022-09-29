@@ -36,9 +36,6 @@ function [obj] = Calculate_DC_RBI_Switchgear_Mass(numRBI, F, Vin, Vout, Pout, Av
     obj.DC_RBI_efficiency = obj.DRB_efficiency*obj.CC_Efficiency
     obj.Q_DC_RBI = (1-obj.DC_RBI_efficiency)*Pout
     obj.Q_total =obj.Q_DC_RBI*obj.numRBI
-    obj.radiator_Mass = Calculate_Radiator_Mass(radiatorType, obj.Q_total, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, obj.CC_Length, obj.CC_Width, obj.CC_Height)%how do i calculate CC_L, W, H for the RBI?
+    obj.radiator_Mass = Calculate_Radiator_Mass(radiatorType, Q_total, maxBaseplateTemp, maxRadiatorSinkTemp, maxRadiatorBaseplateDelta, radiatorMaterial, obj.CC_Length, obj.CC_Width, obj.CC_Height)%how do i calculate CC_L, W, H for the RBI?
 
     obj.DRB_Switchgear_Mass = obj.Total_DRB_CM_Mass + obj.Total_DRB_Mass + obj.Total_Conductor_Connector_Mass_DRB + obj.box_Mass + obj.radiator_Mass;
-    obj.specific_power = obj.Pout/obj.DRB_Switchgear_Mass;
-    obj.Box_Volume_liters = obj.Component_Volume*1000;
-    obj.power_density = obj.Pout/obj.Box_Volume_liters;
