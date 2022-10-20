@@ -288,14 +288,24 @@ DDCU_specific_power_mesh_40kHz = Pout./DDCU_mass_mesh;
 DDCU_specific_power_mesh = Pout./DDCU_mass_mesh;
 
 
-surf(power_mesh, efficiency_mesh, DDCU_specific_power_mesh)
-xlabel('Power [kW]')
-ylabel('Efficiency')
-zlabel('Specific Power [kW/kg]')
-title('DDCU Stage')
-hold on
-legend('40 kHz') % only 40 kHz 
+fig8 = surf(power_mesh, efficiency_mesh, DDCU_specific_power_mesh);
+view(0, 90);
+%colorbar
+ylabel(colorbar, 'Specific Power [kW/kg]');
 
+xlabel('Power [kW]')
+xlim([power_mesh(1, 1)  power_mesh(end, end)]);
+
+ylabel('Efficiency')
+ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
+
+% colorbar
+
+
+fig8.Parent.FontName = 'Times New Roman';
+fig8.Parent.FontWeight = 'Bold';
+fig8.Parent.FontSize = 14;
+hold on
 %% calculating CC_length, CC_width, CC_height
 
 % to determine CC_Length, CC_Width, and CC_Height for the CC_Masses
@@ -443,14 +453,22 @@ DDCU_all_mass_mesh = DDCU_mass_mesh + connector_mass + radiator_mass + box_mass;
 DDCU_all_specific_power_mesh = Pout./DDCU_all_mass_mesh;
 
 
-surf(power_mesh, efficiency_mesh, DDCU_all_specific_power_mesh)
+fig12 =surf(power_mesh, efficiency_mesh, DDCU_all_specific_power_mesh);
+
 xlabel('Power [kW]')
+xlim([power_mesh(1, 1)  power_mesh(end, end)]);
+
 ylabel('Efficiency')
-zlabel('Specific Power [kW/kg]')
-title('DDCU W/ All Parts Stage')
+ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
+
+ylabel(colorbar,'Specific Power [kW/kg]');
+
+fig12.Parent.FontName = 'Times New Roman';
+fig12.Parent.FontWeight = 'Bold';
+fig12.Parent.FontSize = 14;
+view(0, 90)
 hold on
 %legend('40 kHz') % only 40 kHz
-
 %% Just radiator
 
 figure(13), clf
@@ -474,10 +492,29 @@ radiator_mass = Calculate_Radiator_Mass(radiatorType, Q_array, maxBaseplateTemp,
 DDCU_radiator_solo_specific_power_mesh = Pout./radiator_mass;
 
 
-surf(power_mesh, efficiency_mesh, DDCU_radiator_solo_specific_power_mesh)
+
+fig13 =surf(power_mesh, efficiency_mesh, DDCU_radiator_solo_specific_power_mesh);
+view(0, 90);
+
 xlabel('Power [kW]')
+xlim([power_mesh(1, 1)  power_mesh(end, end)]);
+
 ylabel('Efficiency')
-zlabel('Specific Power [kW/kg]')
-title('Only Radiator Stage')
+ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
+
+ylabel(colorbar,'Specific Power [kW/kg]')
+fig13.Parent.FontName = 'Times New Roman';
+fig13.Parent.FontWeight = 'Bold';
+fig13.Parent.FontSize = 14;
+
 hold on
 %legend('40 kHz') % only 40 kHz 
+
+%% save selected figures
+save_plot_dir = 'C:\Users\cuz-admin\Documents\GitHub\ISS-project\figure\';
+formatType = '-dpng';
+resolution = '-r600';
+print(fig8.Parent.Parent, strcat(save_plot_dir, 'ddcu_alone_flat'), formatType, resolution);
+print(fig12.Parent.Parent, strcat(save_plot_dir, 'ddcu_all_flat'), formatType, resolution);
+print(fig13.Parent.Parent, strcat(save_plot_dir, 'radiator_flat'), formatType, resolution);
+
