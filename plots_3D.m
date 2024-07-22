@@ -291,7 +291,8 @@ DDCU_specific_power_mesh = Pout./DDCU_mass_mesh;
 fig8 = surf(power_mesh, efficiency_mesh, DDCU_specific_power_mesh);
 view(0, 90);
 %colorbar
-ylabel(colorbar, 'Specific Power [kW/kg]');
+ylabel(colorbar,'Specific Power [kW/kg]','FontSize',14, 'FontName', 'Tahoma', 'FontWeight', 'Bold',...
+    'Rotation',270);
 
 xlabel('Power [kW]')
 xlim([power_mesh(1, 1)  power_mesh(end, end)]);
@@ -302,7 +303,7 @@ ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
 % colorbar
 
 
-fig8.Parent.FontName = 'Times New Roman';
+fig8.Parent.FontName = 'Tahoma';
 fig8.Parent.FontWeight = 'Bold';
 fig8.Parent.FontSize = 14;
 hold on
@@ -461,9 +462,11 @@ xlim([power_mesh(1, 1)  power_mesh(end, end)]);
 ylabel('Efficiency')
 ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
 
-ylabel(colorbar,'Specific Power [kW/kg]');
+ylabel(colorbar,'Specific Power [kW/kg]','FontSize',14, 'FontName', 'Tahoma', 'FontWeight', 'Bold',...
+    'Rotation',270);
+%ylabel(a,'Specific Power [kW/kg]', 'FontName', 'Tahoma');
 
-fig12.Parent.FontName = 'Times New Roman';
+fig12.Parent.FontName = 'Tahoma';
 fig12.Parent.FontWeight = 'Bold';
 fig12.Parent.FontSize = 14;
 view(0, 90)
@@ -502,8 +505,9 @@ xlim([power_mesh(1, 1)  power_mesh(end, end)]);
 ylabel('Efficiency')
 ylim([efficiency_mesh(1, 1)  efficiency_mesh(end, end)]);
 
-ylabel(colorbar,'Specific Power [kW/kg]')
-fig13.Parent.FontName = 'Times New Roman';
+ylabel(colorbar,'Specific Power [kW/kg]','FontSize',14, 'FontName', 'Tahoma', 'FontWeight', 'Bold',...
+    'Rotation',270);
+fig13.Parent.FontName = 'Tahoma';
 fig13.Parent.FontWeight = 'Bold';
 fig13.Parent.FontSize = 14;
 
